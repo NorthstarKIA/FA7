@@ -1,0 +1,76 @@
+---
+title: "FA7"
+output: word_document
+date: "2023-04-17"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+#FA7
+Exercise 5.1 
+1. A machine produces memory sticks of varying lengths, distributed uniformly between 2 and 12 mm. Memory sticks longer than 10 mm do not meet the design criterion, and must be scrapped.
+
+
+(a) Calculate the probability that a memory stick will be scrapped.
+(b) Simulate 50 memory stick lengths and obtain a histogram of the simulated values. Calculate the simulated mean and variance.
+
+(a)
+```{r}
+Length <- 12 - 2
+MemoryStick <- 2/Length
+MemoryStick
+```
+(b)
+```{r}
+Random <- runif(m=50, min=2, max=12)
+Random
+hist(Random)
+var(Random)
+mean(Random)
+```
+2. Students in an electrical engineering laboratory measure current in a circuit using an ammeter. Due to several random factors, the measurement, X, follows the probability density function f(x) = 0.025 x + b, 2 < x < 6. 
+(a)Show that b = 0.15. 
+(b)Find the probability the measurement of the current exceeds 3 amps. 
+(c)Find E(X). 
+(d)Find the probability that all three laboratory partners measure the current independently as less than 4 amps.
+```{r}
+#2. A.
+below_x = 2
+above_x = 6
+b <- 0.15
+f <- function(x) ifelse(6 > x & x > 2, 0.025*x + b, 0)
+Density <- integrate(f, below_x = 2, above_x = 6)$val
+y <- 0.1
+Genuine_Probability <- (abs(PDensity - 1) < y) 
+Genuine_Probability
+# 2. B.
+Exceed3 <- integrate(f, below_x = 3, above_x = 6)$val
+cat("Probability that measurement exceeds 3 is =", Exceed3)
+# 2. C.
+F_EX <- integrate(function(x) x * f(x), below_x = 2, above_x = 6)$val
+cat("Expected value of X =", round(F_EX, 2))
+```
+3. In a radio communications system, the phase difference X between the transmitter and receiver is modeled as having a uniform density.
+```{r}
+#3
+LowerLimit <- c(-3.14)
+UpperLimit <- c(3.14)
+
+pdf <- function(x) {
+  ifelse(abs(x) <= 3.14, 1/(2*3.14), 0)
+}
+prob1 <- integrate(pdf, below_x = LowerLimit, below_x = 0)$val
+prob1
+prob2 <- integrate(pdf, below_x = LowerLimit, above_x = 3.14/2)$val
+prob2
+
+```
+
